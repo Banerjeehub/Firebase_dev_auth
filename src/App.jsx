@@ -8,6 +8,9 @@ import {
 import "./App.css";
 import { auth } from "./firebase-config.js";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -20,7 +23,7 @@ const App = () => {
       console.log(user);
     });
 
-    return () => unsubscribe(); // Cleanup the subscription when component unmounts
+    return () => unsubscribe();
   }, [user]);
   const register = async () => {
     try {
@@ -32,8 +35,14 @@ const App = () => {
       console.log(user);
       setRegisterEmail("");
       setRegisterPassword("");
+      toast.success("Registration Successfull");
     } catch (error) {
-      console.log(error.message);
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("Email is already in use. Please use a different email.");
+      } else if (error.code === "auth/invalid-email") {
+        toast.error("Invalid email id");
+      } else if (error.code === "auth/weak-password")
+        toast.warning("Password should be at least 6 characters");
     }
   };
 
@@ -47,14 +56,16 @@ const App = () => {
       console.log(user);
       setLoginEmail("");
       setLoginPassword("");
+      toast.success("User Logged in Successfull");
     } catch (error) {
-      console.log(error.message);
+      toast.error("Invalid Credentials");
     }
   };
 
   const logout = async () => {
     try {
       await signOut(auth);
+      toast.success("Successfully Logged out");
     } catch (error) {
       console.log(error.message);
     }
@@ -161,7 +172,7 @@ const App = () => {
         >
           User Logged-in
         </label>
-        <p className="text-fuchsia-600">user: {user?.email || "No one"}</p>
+        <p className="mb-3 text-fuchsia-600">user: {user?.email || "No one"}</p>
         <button
           type="button"
           className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 w-fit"
@@ -172,6 +183,19 @@ const App = () => {
           </span>
         </button>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition:Bounce
+      />
     </form>
   );
 };
