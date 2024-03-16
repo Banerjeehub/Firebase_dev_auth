@@ -76,7 +76,7 @@ const App = () => {
       <div className="mb-5">
         <label
           htmlFor="registerEmail"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-fuchsia-600 dark:text-white"
         >
           Your email
         </label>
@@ -92,7 +92,7 @@ const App = () => {
       <div className="mb-5">
         <label
           htmlFor="registerPassword"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-fuchsia-600 dark:text-white"
         >
           Your password
         </label>
@@ -123,7 +123,7 @@ const App = () => {
       <div className="mb-2">
         <label
           htmlFor="loginEmail"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-fuchsia-600 dark:text-white"
         >
           Your email
         </label>
@@ -139,7 +139,7 @@ const App = () => {
       <div className="mb-5">
         <label
           htmlFor="loginPassword"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-fuchsia-600 dark:text-white"
         >
           Your password
         </label>
